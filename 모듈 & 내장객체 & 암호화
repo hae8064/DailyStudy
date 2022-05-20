@@ -1,0 +1,25 @@
+-모듈 = 파일을 여러개로 분할해서 코드를 간략하게 만들 수 있음.
+module.exports는 파일에서 단 한번만 사용 가능하다
+require와 import는 같은게 아니다. 비슷한 기능은 적용한다.
+
+-노드 내장객체 알아보기
+비동기코드: settimeout, setinterval, 프로미스then
+
+-exports와 this
+module.exports와 exports를 같이 사용 불가능하다.
+
+-process
+settimeout 0초 보단 setImmediate를 사용하는게 좋음
+path모듈이 경로 처리하기 좋음
+_dirname은 현재 경로를 참조한다.
+윈도우 경로 구분자는 \, 맥은 /
+
+-단방향 암호화 (crypto)
+해시함수: 평문을 해시로 변경한다. (비밀번호에서 주로 사용함) => 항상 같은 문자열을 해시화 하면 같은 결과값이 나옴
+비밀번호 해시 알고리즘으로 bcrypt를 주로 사용한다.
+
+-각종 편의 기능을 모아둔 모듈 = util
+
+-worker_threads
+노드에서 멀티 스레드 방식으로 작업할 수 있게끔 한다.
+set은 중복되지 않는 배열
