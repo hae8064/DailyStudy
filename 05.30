@@ -1,0 +1,42 @@
+
+HTTP 서버 만들기
+
+-REST API서버 만들기
+RESTful:
+
+-POST, PUT, DELETE 요청 보내기
+
+
+-쿠키 이해하기
+쿠키: 키 = 값의 쌍
+서버는 쿠키를 읽어 누구인지 파악
+Set-Cookie: 브라우저에게 쿠키를 설정하라고 명령
+한글사용할 때 encodeURIComponent를 사용해서 한글을 변경해줘야함
+
+
+-세션 사용하기
+중요한 정보를 브라우저에 보내지 않고 서버에 저장함.
+
+
+-https, http2
+https는 createServer를 할 때 cert, key, ca 인수가 필요하다 (인증서는 공식인증기관)
+서버초기화 할 때는 sync 사용가능하다
+https는 443포트일 때만 생략가능함
+http2는 SSL암호화와 더불이 최신 HTTP프로토콜인 HTTP/2를 사용하는 모듈
+
+-Cluster
+기본적으로 싱글 스레드인 노드가 CPU 코어를 모두 사용할 수 있게 해주는 모듈
+cpu 개수만큼 실행하는 모듈: require('os).cpus().length
+서버 다시 살릴 때 쓰는거: cluster.fork() => 새로운 워커 프로세스가 생성됨
+
+-package.json
+NPM: Node Package Manager (노드의 패키지 매니저) 을 통해서 다른사람들이 만든 소스코드를 가져오는 저장소
+package.json에서 scripts를 실행시키려면 npm run ""을 사용하면 됨
+npm i -D는 devDependencies인데, 얘는 개발할 때만 사용된다.
+실제 서비스할 때까지 사용되는건 Dependencies에 있는것만 사용됨
+node_modules는 배포할 때는 삭제하고, npm i를 이용해서 나중에 다시 설치하는게 좋음 (용량이 큼)
+명령어로 사용하는건 global설치하는게 좋음
+npx를 사용해주면 global처럼 명령어로 사용가능하다. 
+우리가 사용하는 명령어는 주로 devDependencies에 넣어놓는게 좋음 npx로 실행하는게 좋음
+
+-npm명령어들 알아보기
