@@ -1,0 +1,51 @@
+- 컴파일: TS로 된 파일을 JS파일로 변환하는 작업
+
+- 윕팩이란..?
+- `Babel이란 ?
+
+- 튜플이란: 배열의 특정 인덱스의 특정 타입을 지정하는 방법
+
+→ let address: [string, number] = [’dsa’, 10];
+
+- 옵셔널 파라미터
+
+→ 특정 파라미터를 선택적으로 붙여주고 싶을때는 파라미터에 ?를 붙인다.
+
+function log(a: string, b?: string) {}
+
+- 인터페이스
+
+반복되는 타입들을 하나의 인터페이스로 정의하고 반복되는 타입을 인터페이스로 정의 가능
+
+```tsx
+//함수에 인터페이스 활용
+function getUser(user: User) {
+  console.log(user);
+}
+
+const capt = {
+  name: '캡틴',
+  age: 100
+};
+
+getUser(capt);
+```
+
+- 함수 구조를 정의하는 인터페이
+
+API를 호출해와서 API 스펙이 어떤지 타입을 지정 해 놓는 방식
+
+- 인덱싱 방식을 활용한 인터페이스
+
+```tsx
+//인덱싱
+interface StringArray {
+  [index: number]: string;
+}
+
+let arr: StringArray = ['a', 'b', 'c'];
+arr[0];
+arr[0] = 10;  //오류 나옴 타입을 string으로 반환값을 지정해서
+arr[0] = 'adsa'     //값이 잘 나옴 반환값을 스트링 형식에 맞아서
+
+```
