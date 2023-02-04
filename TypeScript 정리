@@ -49,3 +49,145 @@ arr[0] = 10;  //오류 나옴 타입을 string으로 반환값을 지정해서
 arr[0] = 'adsa'     //값이 잘 나옴 반환값을 스트링 형식에 맞아서
 
 ```
+
+- 딕셔너리 패턴
+
+→ RegExp 타입 존
+
+```tsx
+// 딕셔너리 패턴
+interface StringRegexDictionary {
+  [key: string]: RegExp;
+}
+
+let obj: StringRegexDictionary = {
+  cssFile: /\.css$/,
+  jsFile: /\.js$/,
+};
+```
+
+cssFile, jsFIle 정규 표현
+
+- 인터페이스 확장
+
+OOP - 상속, 자바스크립트 - prototype 등
+
+```tsx
+//인터페이스 확장
+interface Person {
+  name: string;
+  age: number;
+}
+
+interface Developer extends Person {
+  language: string;
+}
+
+let captain: Developer = {
+  age: 100,
+  name: '캡틴',
+  language: 'ts',
+};
+```
+
+extends 키워드를 사용해 interface를 상속 받아서 사용이 가능하다.
+
+- 타입 별칭
+
+type 키워드를 작성
+
+인터페이스와 타입의 차이
+
+→ 타입 별칭: 정의된 타입에 대해 쉽게 참고할 수 있게 이름을 부여하는 방식 vscode내에서 타입을 가리키면 타입을 보여줌
+
+→ 타입은 확장이 되지 않음
+
+→ 인터페이스는 확장이 가능함 (extends키워드를 이용해서)
+
+→ 가능한한 타입보다는 인터페이스 사용하는걸 권장
+
+- 연산자를 이용한 유니온 타입
+
+→ 유니온 타입: 하나의 타입 이상을 사용할 수 있는거 
+
+string | number 이런식으로 | 하나를 사용함
+
+장점: if문으로 코드를 타입에 따라 정의가 가능하고, 정의하지 않은 타입인경우 예외처리가 가능하다.
+
+```tsx
+let shho: string | number | boolean;
+
+function logMessage(value: string | number) {
+  if (typeof value === 'number') {
+    value.toLocaleString();
+  }
+  if (typeof value === 'string') {
+    value.toString();
+  }
+	throw new TypeError('value must be string or number');
+}
+```
+
+타입 가드: 특정 타입으로 타입의 범위를 좁혀나가는 과정
+
+인터페이스 자체를 유니온 타입으로 받을 수 있음
+
+```tsx
+interface Developer {
+  name: string;
+  skill: string;
+}
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+function askSomeone(someone: Developer | Person) {
+    someone.name
+}
+```
+
+askSomeone 함수에서 someone.skill이나 someone.age를 사용 못하는 이유는 공통된 속성이 아니여서 타입 에러가 발생할 수 있기 때문에 유니온타입인 경우에는 공통된  속성만 가능하다.
+
+그래서 만야ㅐㄱ skill이나 age를 사용하려면 if문을 사용해 예외처리를 하여 특정 타입에 맞춰 사용해야한다.
+
+- &연산
+
+|연산과의 차이는 특정 타입을 전부 만족하는 타입
+
+유니온 타입 경우에는 타입 가드에 따른 추가적인 처리가 필요하지만, &연산은 모든 속성과 타입을 포함하기 때문에 &연산이 가능하다.
+
+실무에서 더 많이 사용하는 타입은 유니온( | )타입을 사용
+
+- 유니온 타입과 인터섹션 타입 차이점
+
+ 
+
+- 이넘 (Enums): 특정 값들의 집합을 의미하는 자료형 (목록 등)
+
+→ 숫자형 이넘, 문자형 이넘
+
+→ 이넘을 사용시 별도의 값을 지정하지 않으면 숫자가 결과로 출력 
+
+```tsx
+enum Shoes {
+  Nike,
+  Adidas,
+}
+
+let myShoes = Shoes.Nike;
+console.log(myShoes);
+
+```
+
+Shoes.Nike를 입력하면 0이 출력됨, Adidas는 2가 출력됨 점점 1씩 증가 함
+
+- 문자형 이넘
+- 이넘 활용 사례
+
+다양한 형태의 문자를 구체적으로 정의하는 방법 (이넘)
+
+- 클래스 문
+
+클래스는 자바스크립트에서 ES6부터 사용이 가능해
