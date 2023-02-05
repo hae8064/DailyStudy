@@ -191,3 +191,100 @@ Shoes.Nike를 입력하면 0이 출력됨, Adidas는 2가 출력됨 점점 1씩 
 - 클래스 문
 
 클래스는 자바스크립트에서 ES6부터 사용이 가능해
+
+- 자바스크립트 프로토타입 소개
+
+객체가 가지고 있는 정보를 상속 받아서 사용 가능한 형식
+
+```jsx
+let user = { name: 'capt', age: 100 };
+
+// let admin = { name: 'capt', age: 100, role: 'admin' };
+let admin = {};
+admin.__proto__ = user;
+
+console.log(admin.name);
+```
+
+__**proto__**를 사용해서 프로토타입을 지정 가능하다.
+
+- 프로토타입과 클래스와의 관계
+
+- 타입스크립트의 클래스 문법
+
+- 제네릭: 재사용성이 높은 컴포넌트를 만들때 주로 사용함
+
+<T> 이러한 형식..
+
+- 기존 타입 정의 방식과 제너릭 방식의 차이점
+
+타입이 정확하게 추론이 돼야만 특정 메소드를 사용이 가능한 상황일때 union타입 지정으로 지정할 경우에는 타입 추론이 애매해져서 함수 사용이 불가
+
+→ 제너릭의 장점
+
+: 제너릭 사용함ㄴ 함수를 사용할 때 타입을 선언 해 주는거임
+
+```tsx
+function logText<T>(text: T): T {
+  console.log(text);
+  return text;
+}
+
+//함수를 호출할 때 타입을 정의하는거임.. 제너릭 사용시
+const str2 = logText<string>('dsa');
+
+const login = logText<boolean>(true);
+```
+
+이렇게 함수를 제네릭 타입으로 선언 해 놓고 
+
+함수를 호출할 때 타입을 <>제네릭으로 호출 해 주면 특정 타입에 따라 함수를 불러올 수 있
+
+- 드롭다운 형식 사용시 제네릭 타입으로 많이들 사용
+
+```tsx
+interface Dropdown<T> {
+  value: T;
+  selected: boolean;
+}
+
+const obj3: Dropdown<number> = { value: 10, selected: false };
+```
+
+인터페이스 제네릭 사용해서 타입을 동적으로 선언 가능하다.
+
+- 제네릭의 타입 제한
+
+```tsx
+//제네릭의 타입 제한
+function logTextLength<T>(text: T): T {
+  return text.length;
+}
+
+logTextLength<string>('hi');
+
+//제네릭의 타입 제한
+function logTextLength<T>(text: T[]): T {
+  return text.length;
+}
+
+logTextLength<string>('hi');
+```
+
+text.length는 에러가 나옴.. 
+
+이유는 ? T[ ] 배열을 사용하면 그제서야 text.length를 사용이 가능하다.
+
+```tsx
+// 제네릭 타입 제한 2 - 정의된 타입 이용하기
+interface LengthType {
+  length: number;
+}
+
+function logTextLength<T extends LengthType>(text: T): T {
+  text.length;
+  return text;
+}
+```
+
+- keyof로 제네릭 타입 제한하기
