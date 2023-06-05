@@ -1,7 +1,9 @@
 # Daily Study 기록
 
-- Flutter
+- 언어: JavaScript & TypeScript & Python
 
-- React
+- 프론트엔드 -> React, Next
 
-- JavaScript 전반적인 개념
+- 백엔드 -> Node, Flask, MySQL
+
+- 모바일 -> RN
