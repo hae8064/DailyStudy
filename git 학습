@@ -1,0 +1,97 @@
+1. push 취소
+
+```jsx
+git reset [돌아가려는 지점의 commit]
+```
+
+- 코드를 수정하고 다시 push
+    - 위 명령어로 push취소 했으니, 코드 수정하고 add, commit, push진행하면
+    - 아래와 같은 에러 나타난다.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d1b63873-f62c-4732-b518-d7f09ecdd1a7/938fe837-b99b-45d4-83c9-fa4a24938f3f/Untitled.png)
+    
+    - 이 오류는 원격 저장소와 로컬 저장소의  공통 분모가 없는 상태에서 push를 시도할 경우 발생하는 문제
+        
+        → 즉, 깃허브에는 있는데, 로컬에는 없는 상황이라는 것
+        
+    
+    - 해결을 위해서 push 할 branch 앞에 + 기호를 붙여주면 된다.
+        
+        ```jsx
+        git push origin +main
+        ```
+        
+
+1. add 취소 (파일 상태를 Unstage로 변경)
+    - git add 명령어 사용시 파일을 staging Area에 들어간다.
+    
+    - **해결책**
+        - **git reset HEAD**
+        
+        ```jsx
+        //test.js 파일만 Unstage로 변경
+        git reset HEAD test.js
+        
+        // 전체 취소
+        git reset HEAD
+        ```
+        
+    
+    - git restore —staged
+        
+        ```jsx
+        git restore --staged 파일
+        ```
+        
+
+1. git commit 취소하기
+    - **git reset HEAD^ (단계로 commit 취소)**
+        - 커밋 기록 자체를 없앤다.
+        - 꺽쇠 수만큼 이전으로 돌아가게 하는 명령어
+        - ^ (한단계 앞)
+        - ^^ (두단계 앞)
+        - ~ 숫자로도 가능
+        
+        ```jsx
+        //방법 1
+        //commit을 취소하고 해당 파일들은staged상태로 워킹 디렉토리에 보존
+        git reset --soft HEAD^
+        
+         //방법 2
+        //commit을 취소하고 해당 파일들은 unstaged상태로 워킹 디렉토리에 보존
+        git reset HEAD^
+        git reset HEAD~1  //마지막 commit을 취소. 하나를 되돌린다.
+        
+        git reset HEAD^^
+        git reset HEAD~2   //마지막 2개의 commit을 취소
+        
+        //방법 3
+        //commit을 취소하고 해당 파일들은 unstaged상태로 워킹 디렉토리에서 삭제
+        git reset --hard HEAD^
+        ```
+        
+    
+    - git reset 옵션
+        - -soft: index 보존(add한 상태, staged상태), 워킹 디렉토리의 파일 보존. 즉 모두 보존
+        - -mixed: add하기 전 상태, unstaged상태, 워킹 디렉토리 파일 보존
+        - -hard: add하기 전 상태, unstaged상태, 워킹 디렉토리의 파일 삭제 (작업 내용이 다 사라진다.)
+        
+        - **git reset <num> —hard** (이전 commit 상태를 지정해서 리셋)
+            - git reset HEAD로 하면 되돌아갈 위치를 숫자로 세야하는데, 해시 아이디로 지정해서 커밋을 돌아간다.
+            - commit 번호 앞 6자리 일련번호를 통해서 특정 commit상태로 되돌릴 수 있다.
+    
+    - **git revert <num> —hard (이전 commit 상태로 되돌리기)**
+        - 이전 상태로 되돌리는 방법 2번째
+        - reset은 로그를 아예 지워버리기 때문에 미래로 되돌릴 수 없다.
+            - revert는 로그를 덮어 쓰는것이므로 다시 미래로 되돌릴 수 있다.
+        
+        - 간편한 reset 보다 revert를 사용하는 이유 !
+            - 협업할 때 reset 해버리면 다른 사람의 레포지터리와 커밋 로그가 일치하지 않기 때문에, 커밋 로그 통일성을 위해 revert를 자주 애용한다.
+            
+        
+    - **git commit —amend (commit mesasge 변경하기)**
+    
+2. git pull
+    - Remote Repository의 커밋을 가져온 다음 (git fetch) 현재의 Working Directory에 Merge하는 동작을 하는 명령어
+    - git pull = git fetch  + git merge
+    - 결국 순서는 git fetch + git merge 순서 ⇒ 이걸 쉽게 하는게 git pull
