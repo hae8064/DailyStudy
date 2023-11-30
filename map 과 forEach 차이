@@ -1,0 +1,52 @@
+map은 리턴값을 받을 수 있지만, forEach는 리턴값을 받을 수 없으며, 리턴값은 항상 undefined이다.
+
+```js
+const arr = [1, 2, 3, 4, 5];
+const newArr = arr.map((item) => {
+  return item * 2;
+});
+
+console.log(newArr); // [ 2, 4, 6, 8, 10 ]
+
+const arr = [1, 2, 3, 4, 5];
+const newArr = arr.map((item) => item * 2);
+
+console.log(newArr); // [ 2, 4, 6, 8, 10 ]
+```
+- map은 코드 반환을 한다.
+
+
+```js
+const arr = [1, 2, 3, 4, 5];
+const newArr = arr.forEach((item) => {
+  return item * 2;
+});
+
+console.log(newArr); // undefined
+
+const arr = [1, 2, 3, 4, 5];
+const newArr = arr.forEach((item) => item * 2);
+
+console.log(newArr); // undefined
+```
+- forEach는 console로 나타내면 undefined라는 값이 나온다.
+
+- **해결 방법**
+```js
+const arr = [1, 2, 3, 4, 5];
+const newArr = [];
+
+arr.forEach((item) => newArr.push(item * 2));
+
+console.log(newArr); // [ 2, 4, 6, 8, 10 ]
+```
+- forEach는 newArr에 직접 push를해줘야한다. 
+
+그 이유는 위에서 적은 그대로
+> map은 리턴값을 받을 수 있지만, forEach는 리턴값을 받을 수 없으며, 리턴값은 항상 undefined이다.
+> - forEach()는 Array안에 데이터를 변경 하려는게 아니라, DB에 저장하거나 로그아웃하는 것과 같은 작업에 유용
+> - map()은 데이터를 변경할 때 선호 된다. 더 빠르고, 새로운 배열을 반환
+> 	- map, filter, reduce등 다른 메소드들과 함께 사용하는 일이 많다.
+
+- map을 사용하면, 결과 값을 배열로 받을 수 있다. 함수 안의 결과 값을 계산하지 않고, 배열로 받기 위해선 map을 사용하는게 유리
+- 
