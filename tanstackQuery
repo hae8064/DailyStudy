@@ -1,0 +1,26 @@
+- stale 상태
+	- '신선하지 않은'이라는 뜻. 즉, 가져온 데이터가 stale하다면, 이 데이터는 더 이상 신선하지 않는 것이기 때문에 업데이트가 필요하다.
+	- staleTime
+		- default는 0이다. -> 즉, useQuery를 선언하고 별도 옵션을 설정하지않으면 쿼리를 fetch하자마자 해당 쿼리는 stale상태가 된다.
+			- 따라서, staleTime을 별도로 지정 해서 react-query의 캐싱 기능을 잘 활용해야 한다.
+		- 적절한 StaleTime이란
+			- 정적인 데이터 또는 변화가 적은데이터는 자주 fetch할 필요 없어서, staleTime을 길게 설정해도 좋다. 즉, staleTime을 Infinity로 설정해서 stale상태로 무한정 유지 가능
+			- staleTime을 설정할 때 cacheTIme을 생각해야하낟. staleTime이 아무리 길어도 cacheTime이 그에 비해 짧으면 캐시가 사라져서 refetch가 불가피해진다.
+
+	- cacheTime
+		- 쿼리가 캐시되어 있는 시간을 말한다. 
+		- tanstackQuery에서 설정한 시간은 5분이다. 만약 5분동안 사용되지 않는다면 가비지 컬렉터에서 적절하게 수거해서 캐시에서 사라진다. 
+		- 
+
+- tanstackQuery는 쿼리가 stale할 때, 다음과 같은 상황에서 해당 쿼리를 refetch 한다.
+	- 새로운 인스턴스가 마운트 될 때 - refetchOnMount
+	- 브라우저 화면이 focus 됐을 때 - refetchOnWindowFocus
+	- 네트워크가 재연결 됐을때 - refetchOnReConnect
+	- 특별히 설정한 refetch interval이 있을 때  - refetchInterval
+
+- invalidateQueries 메서드
+	- POST, PUT, DELETE와 같이 데이터를 변화 시키는 요청은 useMutation을 주로 사용한다.
+		- 보통 이럴때 데이터 업데이트 요청을  보낸 뒤 갱신된 데이터를 다시 서버로부터 받아오는 경우가 많은데, 이럴 때 자주 사용되는 메소드로 invalidateQueries()가 있다.
+	- invalidateQueries 메소드는 캐싱된 쿼리를 무효화하는 메소드
+		- 쿼리키와 일치하는 모든 쿼리를 즉시 유효하지 않은 것으로 표시하고, active한 상태의 쿼리는 백그라운드에서 refetch 한다.
+		- 
