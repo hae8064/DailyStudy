@@ -1,0 +1,23 @@
+![[Pasted image 20240105153303.png]]
+- 위 오류는 Next.js에서 DOM 요소에 isVisible Property 속성을 인식하지 못한다.
+	- 만약 의도적으로 DOM에 표시하려면 isVisible대신 소문자를 써라 !
+	- 소문자를 써도 경고가 있다. 
+
+> 해결방법
+``` jsx
+<Button 
+	$isSelected = { //$추가
+	selectedCategory.categoryId === categories[index].categoryId
+}/>
+
+const Button = styled.button<{ $isSelected: boolean }>`
+  border: ${(props) =>
+    props.$isSelected //$추가
+      ? '4px solid var(--color-pink-1)'
+      : '4px solid transparent'};
+
+  //나머지 생략
+`;
+```
+- props 변수에 '$' prefix를 붙인다.
+
